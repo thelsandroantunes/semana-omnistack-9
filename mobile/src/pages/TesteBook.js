@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, TextInput, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native';
+import {SafeAreaView, Alert, Text, TextInput, StyleSheet, AsyncStorage, TouchableOpacity} from 'react-native';
+
 import api from '../services/api';
 
-export default function Book({navigation}){
+export default function TesteBook({navigation}) {
     const [date, setDate] = useState('');
     const id = navigation.getParam('id');
 
     async function handleSubmit() {
         const user_id = await AsyncStorage.getItem('user');
-
-        await api.post(`/spots/${id}/booking`, {
+        
+        await api.post(`/spots/${id}/bookings`, {
             date
         }, {
             headers: {user_id}
         })
-        alert.alert('Solicitação de reserva enviada');
+        Alert.alert('Solicitação de reserva enviada');
 
-        navigation.navigate('List');
+        navigation.navigate('Teste');
     }
 
     function handleCancel() {
-        navigation.navigate('List');
+        navigation.navigate('Teste');
     }
 
-    return (
+    return ( 
         <SafeAreaView style={styles.container}>
             <Text style={styles.label}>DATA DE INTERESSE</Text>
             <TextInput
@@ -35,10 +36,10 @@ export default function Book({navigation}){
                 value={date}
                 onChangeText={setDate}
             />
-            <TouchableOpacity onPress={() => handleSubmit(item._id)} style={styles.button}>
+            <TouchableOpacity onPress={handleSubmit} style={styles.button}>
                 <Text style={styles.buttonText}>Solicitar reserva</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleCancel(item._id)} style={[styles.button, styles.cancelButton]}>
+            <TouchableOpacity onPress={handleCancel} style={[styles.button, styles.cancelButton]}>
                 <Text style={styles.buttonText}>Cancelar</Text>
             </TouchableOpacity>
         </SafeAreaView>

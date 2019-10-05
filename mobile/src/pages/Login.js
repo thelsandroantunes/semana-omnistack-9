@@ -14,22 +14,38 @@ import api from '../services/api';
 
 import logo from '../assets/logo.png';
 
-export default function Login({navigation}){
+
+export default function Login({ navigation }){
     const [email, setEmail] = useState('');
     const [techs, setTechs] = useState('');
     
-    useEffect(() => {
+   /* useEffect(() => {
         AsyncStorage.getItem('user').then(user => {
             if (user) {
                 navigation.navigate('List');
             }
         })
-    },[])
-
+    },[])*/
+    useEffect(() => {
+        AsyncStorage.getItem('user').then(user => {
+            if (user) {
+                navigation.navigate('Teste');
+            }
+        })
+    }, []);
 
     async function handleSubmit(){
 
-        console.log(email, techs);
+        const response = await api.post('/sessions',{
+            email
+        })
+
+        const { _id } = response.data;
+
+        await AsyncStorage.setItem('user', _id);
+        await AsyncStorage.setItem('techs', techs);
+        
+        navigation.navigate('Teste');
         
         /*const response = await api.post('/sessions', {
             email
