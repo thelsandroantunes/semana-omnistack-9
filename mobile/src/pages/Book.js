@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, TextInput, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native';
+import { Alert, SafeAreaView, Text, TextInput, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native';
 import api from '../services/api';
 
 export default function Book({navigation}){
@@ -14,7 +14,7 @@ export default function Book({navigation}){
         }, {
             headers: {user_id}
         })
-        alert.alert('Solicitação de reserva enviada');
+        Alert.alert('Solicitação de reserva enviada');
 
         navigation.navigate('List');
     }

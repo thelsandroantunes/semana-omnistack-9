@@ -15,7 +15,14 @@ export default function TesteBook({navigation}) {
         }, {
             headers: {user_id}
         })
-        Alert.alert('Solicitação de reserva enviada');
+        
+        Alert.alert(
+            'Aguarde',
+            'Solicitação de reserva enviada',
+            [              
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ]
+          );
 
         navigation.navigate('Teste');
     }
